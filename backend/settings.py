@@ -25,7 +25,9 @@ SECRET_KEY = 'x!q(((=k(*1#03c(v@i$cik(euh(+t5-n0$r0+&vg25+))7p*+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+
+]
 
 
 # Application definition
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,8 +133,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+REACT_APP = os.path.join(BASE_DIR, 'frontend')
+
+STATICFILES_DIRS = [
+    os.path.join(REACT_APP, "build","static"),
+]
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 # we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+#CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
