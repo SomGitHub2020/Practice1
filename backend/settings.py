@@ -61,7 +61,8 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend')],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend')], # BASE_DIR = django-todo-react/backend, 
+                                                      #so this whole new path is django-todo-react/backend/frontend
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,17 +134,40 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-REACT_APP = os.path.join(BASE_DIR, 'frontend')
+# same as we have DIRS in TEMPLATES, 
+# but with a name to be joined into staticfiles directory
+REACT_APP = os.path.join(BASE_DIR, 'frontend') 
 
 STATICFILES_DIRS = [
-    os.path.join(REACT_APP, "build","static"),
+    os.path.join(REACT_APP, "build","static"), # this is now pathed to django-todo-react/backend/frontend/build/static
 ]
 
+#ALLOWED_HOSTS = ['127.0.0.1::3000', 'localhost']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
+
 # we whitelist localhost:3000 because that's where frontend will be served
-#CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+#CORS_ORIGIN_WHITELIST = ['http://localhost:8000']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
