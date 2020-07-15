@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,11 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'x!q(((=k(*1#03c(v@i$cik(euh(+t5-n0$r0+&vg25+))7p*+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -61,8 +59,8 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend')], # BASE_DIR = django-todo-react/backend, 
-                                                      #so this whole new path is django-todo-react/backend/frontend
+        'DIRS': [os.path.join(BASE_DIR, 'frontend')], # BASE_DIR = django-todo-react, 
+                                                      #so this whole new path is django-todo-react/frontend
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,11 +84,18 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'NAME': 'postgres', # database name
+        #'USER': 'postgres', # user name to access postgresql server
+        #'PASSWORD': 'postgre2020', # password to access postgresql server
+        #'HOST': '127.0.0.1', # ip server where postgresql is hosted 
+        #'PORT': '5432', # port of the server to listen
+
+        'ENGINE': 'django.db.backends.postgresql', 
         'NAME': 'postgres', # database name
         'USER': 'postgres', # user name to access postgresql server
         'PASSWORD': 'postgre2020', # password to access postgresql server
-        'HOST': '127.0.0.1', # ip server where postgresql is hosted 
+        'HOST': 'db', # ip server where postgresql is hosted # '127.0.0.1', 
         'PORT': '5432', # port of the server to listen
     }
 }
@@ -139,7 +144,7 @@ STATIC_URL = '/static/'
 REACT_APP = os.path.join(BASE_DIR, 'frontend') 
 
 STATICFILES_DIRS = [
-    os.path.join(REACT_APP, "build","static"), # this is now pathed to django-todo-react/backend/frontend/build/static
+    os.path.join(REACT_APP, "build","static"), # this is now pathed to django-todo-react/frontend/build/static
 ]
 
 #ALLOWED_HOSTS = ['127.0.0.1::3000', 'localhost']
@@ -167,8 +172,14 @@ CORS_ALLOW_HEADERS = (
 )
 
 # we whitelist localhost:3000 because that's where frontend will be served
-#CORS_ORIGIN_WHITELIST = ['http://localhost:8000']
+CORS_ORIGIN_WHITELIST = ['http://localhost:8000']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
+
+#print("Current file: " + __file__)
+#print(os.path.join(REACT_APP, "build","static"))
+#print(os.path.dirname(os.path.abspath(__file__)))
+#print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#print(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
